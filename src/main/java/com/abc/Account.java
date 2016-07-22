@@ -17,8 +17,8 @@ public class Account {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    public void deposit(double money) {
-        if (money <= 0) {
+    public void deposit(double amount) {
+        if (amount <= 0) {
             throw new IllegalArgumentException("amount must be greater than zero");
         } else {
             transactions.add(new Transaction(amount));
