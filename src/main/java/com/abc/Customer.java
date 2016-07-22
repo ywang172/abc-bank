@@ -75,4 +75,13 @@ public class Customer {
     private String toDollars(double d){
         return String.format("$%,.2f", abs(d));
     }
+    
+    public void transferMoney(Account account1, Account account2, double amount){
+        if (amount > account2.sumTransactions()) {
+            throw new IllegalArgumentException("Insufficient money in your account");
+        } else {
+            account1.transactions.add(new Transaction(money));
+            account2.transactions.add(new Transaction(-money));
+        }
+    }
 }
