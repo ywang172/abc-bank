@@ -17,8 +17,8 @@ public class Account {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    public void deposit(double amount) {
-        if (amount <= 0) {
+    public void deposit(double money) {
+        if (money <= 0) {
             throw new IllegalArgumentException("amount must be greater than zero");
         } else {
             transactions.add(new Transaction(amount));
@@ -28,7 +28,10 @@ public class Account {
 public void withdraw(double amount) {
     if (amount <= 0) {
         throw new IllegalArgumentException("amount must be greater than zero");
-    } else {
+    }
+    else if (amount > sumTransactions()){
+        throw new IllegalArgumentException("Exceed your current balance");
+    }else {
         transactions.add(new Transaction(-amount));
     }
 }
@@ -38,20 +41,23 @@ public void withdraw(double amount) {
         switch(accountType){
             case SAVINGS:
                 if (amount <= 1000)
-                    return amount * 0.001;
+                    return amount * 0.001/365;
                 else
-                    return 1 + (amount-1000) * 0.002;
+                    return (1 + (amount-1000) * 0.002)/365;
+                break;
 //            case SUPER_SAVINGS:
 //                if (amount <= 4000)
 //                    return 20;
             case MAXI_SAVINGS:
                 if (amount <= 1000)
-                    return amount * 0.02;
-                if (amount <= 2000)
-                    return 20 + (amount-1000) * 0.05;
-                return 70 + (amount-2000) * 0.1;
+                    return amount * 0.02/365;
+                else if (amount <= 2000)
+                    return (20 + (amount-1000) * 0.05)/365;
+                else return (70 + (amount-2000) * 0.1)/365;
+                break;
             default:
-                return amount * 0.001;
+                return amount * 0.001/365;
+                break;
         }
     }
 
